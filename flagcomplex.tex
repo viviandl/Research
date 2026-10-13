@@ -1,0 +1,213 @@
+
+\documentclass{article}
+\usepackage{stmaryrd}
+\usepackage{silence}
+\usepackage{upgreek}
+\usepackage{amssymb}
+\usepackage{faktor}
+\usepackage[all,cmtip]{xy}
+\usepackage{amsmath} 
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage[mathcal]{euscript}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{amsthm}
+\usepackage{ragged2e}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{showlabels}
+\input xy
+\xyoption{all}
+\usepackage[textheight=8in, textwidth=6in]{geometry}
+\usepackage[all]{xy}
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{bibliography.bib}
+\usepackage{multicol}
+
+\usepackage{showlabels}
+
+\setlength{\headheight}{15pt}
+
+\DeclareMathOperator{\TC}{\mathrm{TC}}
+\DeclareMathOperator{\Conf}{\mathrm{Conf}}
+\DeclareMathOperator{\zcl}{\mathrm{zcl}} 
+\DeclareMathOperator{\Cat}{\mathrm{cat}}
+\DeclareMathOperator{\id}{\mathrm{id}}
+\DeclareMathOperator{\pr}{\mathrm{pr}}
+\DeclareMathOperator*{\im}{\mathrm{im}}
+\DeclareMathOperator{\bnd}{\partial}
+
+
+
+
+
+
+\newcommand{\graphfont}{\mathsf}
+\newcommand{\sclass}{$\stargraph{}$-class}
+
+\newcommand{\stargraph}[1]{\graphfont{S}_{#1}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbN}{\mathbb{N}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{construction}{Construction}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{observation}{Observation}
+
+\newtheorem*{definition*}{Definition}
+\newtheorem*{construction*}{Construction}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{observation*}{Observation}
+
+
+\pagestyle{headings}
+
+
+\begin{document}
+\justifying
+
+\begin{definition*}
+    Let $\mathsf{\Gamma}$ a graph and use $V$ to denote the set of its vertices. For a number $n\in \mathbb{N}$ and $W\subseteq V$, define the \emph{configuration space with sinks} as \[F_n^{\text{\hspace{2pt}sink}}(\mathsf{\Gamma})=\{(x_1,\dots, x_n)\in \mathsf{\Gamma}^n \mid \hspace{5pt}  \text{for $i\neq j$, $x_i\neq x_j$ or $x_i =x_j\in W$}\},\]
+    where the vertices in $W$ are called the \emph{sink vertices}.
+\end{definition*} 
+\begin{construction}[Cube complex $K_n(\mathsf{\Gamma})$]\label{const} \hfill 
+    \vspace{5pt}
+
+  Let $E$ and $V$ be respectively the set of edges and the set of essential vertices  of $\mathsf{\Gamma}$, and give $\mathsf{\Gamma}$ the path metric such that each edge has length $1$. We define each edge $e$ in $\mathsf{\Gamma}$ to have two distinct \emph{half edges}, each of them pointing towards each vertex respectively. For each half edge $h$ that comes from an edge that's not adyacent to any sink, we call $\partial_1 h$ the vertex incident to $h$ and $\partial_0 h$ the edge given by the half edge. If $e$ is an edge incident to one sink vertex, it only has one half edge associated to it, and then $\partial_0h$ is the sink vertex next to it and $\partial_1h$ is the non sink vertex adyacent to it. If $e$ is an edge next to two sink vertices, then pick an orientation on $e$ and call $\partial_0h$ the starting vertex of $e$ and $\partial_1h$ the ending vertex of $e$. 
+
+ We define an abstract poset $P_n(\mathsf{\Gamma})= (P_n^{(0)}(\mathsf{\Gamma}), P_n^{(1)}(\mathsf{\Gamma}), \dots , P_n^{(k)}(\mathsf{\Gamma}), \dots)$ where $P_n^{(k)}(\mathsf{\Gamma})$ is the set of $k$-faces of $P_n(\mathsf{\Gamma})$ defined by pairs $(f, S)$ such that:
+ \begin{enumerate}
+    \item[(a)] $f: E\sqcup V \to \bbN$ is a function.
+    \item[(b)] $S=\{h_1, \dots, h_k\}$ is a set consisting of exactly $k$ half edges of $\mathsf{\Gamma}$.
+    \item[(c)] $\partial_1h_i\in V$ for $i\in \{1, \dots, k\}$ and if $i\neq j$, either $\partial_1 h_i\neq \partial_1 h_j$ or $\partial_1h_i=\partial_1h_j\in W$.
+    \item[(d)] If $e$ is adyacent to one or two sinks, $f(e)=0$.
+    \item[(e)] $f(v)\in \{0, 1\}$ for each $v\in V \setminus W$ and if $\partial_1 h_i\in V\setminus W$, $f(v(h_i))=0$. 
+    \item[(f)] $\sum_{a\in V\sqcup E }f(a)= n-k$.
+ \end{enumerate}
+
+ Then, the $0$-faces correspond to the configurations of particles among the graph such that there is no particles on edges incident to one or two sink vertices. The set $S$ on a $k$- face, represent the independent movements of $k$ particles on the graph. If $h_i$ comes from an edge non adyacent to a sink, then it represent a movement from the edge to $\bnd_1 h_i$ . If $h_i$ comes from an edges adyacent to one or two sinks, it represents a movement form the sink vertex to its adjacent vertex $\bnd h_i$.
+
+ Given $(f_1, S)$ and $(f_2, S\cup\{h\})$ with $s\notin S$, we say $(f_1, S) \prec (f_2, S\cup \{h\})$ if one of these cases holds:
+
+ \begin{multicols}{2}
+ \begin{itemize}
+    \item[(i)] \[f_1(s)= \begin{cases} 
+      f_2(a)+1 & \text{if   }a= \bnd_0h \\
+      f_2(a) & \text{otherwise}
+   \end{cases}
+\]
+
+\item[(ii)] \[f_1(s)= \begin{cases} 
+      f_2(a)+1 & \text{if   }a= \bnd_1h \\
+      f_2(a) & \text{otherwise}
+   \end{cases}
+\]
+\end{itemize}
+\end{multicols}
+
+This is a partial order on the set of faces of $P_n(\mathsf(\Gamma))$ and we take it as the relation of being a face in $P_n(\mathsf(\Gamma))$. Observe that $P_n(\mathsf(\Gamma))$ is the face poset of a cube complex which we denote as $K_n(\mathsf(\Gamma))$.
+   
+
+
+
+\end{construction}
+
+\begin{observation*}
+The items 2,  3 and 5 guarantee independence of the movements. This is:
+\begin{itemize}
+    \item No two particles move along the same half edge (2).
+    \item No two particles move toward the same non-sink vertex (3).
+    \item No particle moves towar an occupied non-sink vertex (5).
+\end{itemize}
+\end{observation*}
+
+Given a vertex $(x,\varphi)$ of $K_n(\mathsf{\Gamma})$, let $\mathcal{S_{\varphi}}$ the colllection of subsets $S$ that satisfy the following conditions:
+    
+      \begin{enumerate}
+        \item For each $h_i\in S$, $\bnd_1 h_i\in V$.
+        \item $\bnd_1 h_i\in V$ for $i\in \{1, \dots, k\}$ and if $i\neq j$, either $\bnd_1 h_i\neq \bnd_1 h_j$ or $\bnd_1 h_i=\bnd_1 h_j\in W$.
+        \item If $h\in S$, $\varphi(\bnd_0h)+\varphi(\bnd_1h)\geq 1$.
+        \item   If $h\in S$ and $-h\in S$, $\varphi(\bnd_0 h)+\varphi(\bnd_1 h)+\varphi(\bnd_1(-h))\geq 2$. \end{enumerate}
+\begin{lemma}\label{lemma}
+   The subsets $S\in \mathcal{S}$
+    are in one to one correspondence with the cells that contain $x$.
+\end{lemma}
+\begin{proof}
+
+A cell containing $x$ is, given by a subset $S$ and a function $\psi: E\sqcup V \to \bbN$ that fulfills the conditions (a) to (f) stated on \Cref{const}. The conditions (a) and (b) are 1 and 2 respectively. Observe that, for any $(\psi, S)$, there exist one 1-cell $(f,h)$ with $(\psi, \{\emptyset\})\prec (f,h)\prec (\psi, S)$ for each $h\in S$. To prove 3, we take $(f, \{h\})$ one of these 1-cells. Then either $\varphi(\bnd_0h)= f(\bnd_0h) +1$, or $\varphi(\bnd_1h)= f(\bnd_1h) +1$. Hence $\varphi(\bnd_0h)\geq 1$ or $\varphi(\bnd_1h)\geq 1$, and the result follows for every $h\in S$.
+
+To prove 4, we suppose $\mid S\mid \geq 2$ and take $h_1\in S$ such that $h_2=-h_1\in S$ too. Observe that then, $\bnd_0 h_1 = \bnd_0 h_2$. It follows that there is a 2-cell $(f, \{h_1, h_2\})$ and also 1-cells $(f_1, h_1)$ and $(f_2, h_2)$ such that $(\varphi, \{\emptyset\})\prec (f_1, \{h_1\})\prec (f, \{h_1, h_2\})$ and $(\varphi, \{\emptyset\})\prec (f_2, \{h_2\})\prec (f, \{h_1, h_2\})$. We will prove that $\varphi(\bnd_0 h_1)+ \varphi(\bnd_1 h_1) +\varphi(\bnd_1 h_2)\geq 2$ in each of the following cases:
+
+\textit{Case 1:} When $\varphi(\bnd_0 h_1)=0$. Then by 3, $\varphi(\bnd_0 h_1)\geq 1$ and $\varphi(\bnd_0 h_1)\geq 1$. The claim follows.
+
+\textit{Case 2:} If $\varphi(\bnd_1 h_1)=0$ and $\varphi(\bnd_1 h_2)\geq 1$. Using 3 on $h_1$ we obtain $\varphi(\bnd_0 h_1)\geq 1$. Therefore $\varphi(\bnd_0 h_1)+ \varphi(\bnd_1 h_1) +\varphi(\bnd_1 h_2)\geq 1 + 0 +1 =2$.
+
+\textit{Case 3:} If $\varphi(\bnd_1 h_2)=0$ and $\varphi(\bnd_1 h_1)\geq 1$. Similarly, we use 3 on $h_2$ to conclude $\varphi(\bnd_0 h_1) = \varphi(\bnd_0 h_2)\geq 1$. Thus $\varphi(\bnd_0 h_1)+ \varphi(\bnd_1 h_1) +\varphi(\bnd_1 h_2)\geq 1 + 0 +1 =2$.
+
+\textit{Case 4:} When $\varphi(\bnd_1 h_1)=0$ and $\varphi(\bnd_1 h_2)= 0$. Since $(\varphi, \{\emptyset\})\prec (f_1, \{h_1\})$, either $\varphi(\bnd_0 h_1)= f_1(\bnd_0 h_1)+1$ and $\varphi(a)=f_1(a)$ for any other $a$ or $\varphi(\bnd_1 h_1)= f_1(\bnd_1 h_1)+1$ and $\varphi(a)=f_1(a)$ for any other $a$, but the latter would contradict our assumption. Hence $\varphi(\bnd_0 h_1)= f_1(\bnd_0 h_1)+1$ and $\varphi(a)=f_1(a)$ for any other $a$. Particularly  $\varphi(\bnd_1h_2)=f_1(\bnd_1 h_2)$. 
+
+  Hence $\varphi(\bnd_0 h_2)= \varphi(\bnd_0h_1)=f_1(\bnd_0 h_1) +1 \geq 1$.
+
+Now because of  $(f_1, \{h_1\})\prec (f, \{h_1, h_2\})$, $f_1(\bnd_1h_2)= f(\bnd_1h_2)+1$ and $f_1(a)=f(a)$ for any other $a$, or $f_1(\bnd_0h_2)= f(\bnd_0h_2)+1$ and $f_1(a)=f(a)$ for any other $a$, but since the first one would imply $\varphi(\bnd_1h_2)=f_1(\bnd_1h_2)= f(\bnd_1 h_2)+1>1$, this is a contradiction and $f_1(\bnd_0h_2)= f(\bnd_0h_2)+1$. This implies $\varphi(\bnd_0 h_1)=  f_1(\bnd_0h_1)+1=  f_1(\bnd_0h_2)+1= (f(\bnd_0h_2)+1)+1\geq 2$.
+
+
+Now let $S$ such that it fullfills 1 to 5. We construct the function $g:S\to \{-1,0\}$ that assigns this label to each of the half edges as follows. If $\varphi(\bnd_1h)\leq 1$,
+$g(h)=(\varphi(\bnd_1 h)-1)$. This is, $-1$ if  $\varphi(\bnd_1 h)=0$ and $0$ otherwise. When $h$ is such that $\varphi(\bnd_0h)>1$ and $\varphi(\bnd_1h)> 1 $, it randomly assigns $0$ or $-1$ to $h$.
+
+Then the set $S$ corresponds to the cell $(f, S)$ where function $f$ is given by:
+\begin{align*}
+    f(a) = \begin{cases}
+        \varphi(a) & \text{if } a\in V\setminus \{\bnd_0h \mid h\in S\}\cup \{\bnd_1 h \mid h\in S\}\\ 
+0 &  \text{if } a\in  \{\bnd_1 h \mid h\in S\} \setminus \left( W \cap \{\bnd_1 h \mid h\in S\} \right) \\ 
+\varphi(a)+\sum\limits_{\{h\in S \mid \bnd_0h = a\}} (\varphi(\bnd_1h)-1) & \text{if } a\in E\\
+\varphi(a)+ \sum\limits_{\{h\in S \mid \bnd_ih = a, i=0,1\}} g(h) &  \text{if } a\in \left( \{\bnd_1 h \mid h\in S\} \cup \{\bnd_0 h \mid h\in S\}\right) \cap W 
+    \end{cases}
+\end{align*}
+\end{proof}
+
+\begin{proposition}
+    The link of each of the vertices of the cube complex $K$ is a flag complex.
+\end{proposition}
+\begin{proof}
+    Let $x\in K$ a vertex of the cube complex. This is, a configuration where all particles in the interior of each edge are equally spaced and there is no particle on an edge adjacent to one or two sinks. Formally, this is $x= (\varphi, \emptyset)$ where $\varphi$ is a function $\varphi: E\cup B\to \mathbb{N}$ such that:
+    \begin{enumerate}
+        \item[(a)] $\varphi(v)\in \{0,1\}$ for each $v\in V\setminus W$ 
+        \item[(b)] If an edge $e$ is incident to one or two sink vertices, $\varphi(e)=0$.
+        \item[(c)] $\sum_{a\in V \sqcup E} \varphi(a) = n$
+    \end{enumerate}
+    We'll describe the link of $x$. Start by the cells that contain $x$, this is, the faces $F$ of the cube $K_n(\mathsf{\Gamma})$ that have $x$ as one of its face. To describe them, we can instead use \Cref{lemma} to identify them with the element of the $\mathcal{S}$.
+  
+
+    The subposet of cells in $K_n(\mathsf{\Gamma})$ which contain $x$ coincides with the poset $P_{\varphi}$ of sets in $\mathcal{S}_{\varphi}$ ordered by inclusion. This poset has the property that if $S\in P_{\varphi}$ and $\emptyset \neq R\subset S$ then $R\in P_{\varphi}$. This implies that $P_{\varphi}$ is the face poset of a simplicial complex $K_{\varphi}$, whose $k$-simplicies correspond to  the elements $S\in P_{\varphi}$ with cardinality $k+1$. The poset $P_{\varphi}$ is isomorphic to the face poset of the link, and then this simplicial complex is isomorphic to the link.
+
+     A set $S\in P_{\varphi}$ satisfies the conditions 1-4, and these have the property that a set $S$ of half edges satisfy them if and only if each subset of $S$ with cardinality 2 does. Then this is a flag complex
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
